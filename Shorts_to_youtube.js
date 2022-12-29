@@ -15,6 +15,8 @@ function replaceURL() {
   }
 };
 
+replaceURL();
+
 document.addEventListener('yt-navigate-start', function() {
   console.log('cliquei');
   replaceURL();
