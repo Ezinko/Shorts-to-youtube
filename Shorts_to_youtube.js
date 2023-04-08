@@ -42,22 +42,24 @@ function addButton(){
   if (element != null){
       element.remove(ButtonChangeShorts);
   }
-  if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
-    var elementYoutube = document.getElementById("center")
-    const btn = document.createElement("button");
-    btn.addEventListener("click", replaceURL);
+  if (!window.location.search.includes("list")){
+    if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
+      var elementYoutube = document.getElementById("center")
+      const btn = document.createElement("button");
+      btn.addEventListener("click", replaceURL);
 
-    if (window.location.pathname.includes("shorts")){
-      var texto = document.createTextNode("Change to video");
-    }
-    else{
-      var texto = document.createTextNode("Change to shorts");
-    }
+      if (window.location.pathname.includes("shorts")){
+        var texto = document.createTextNode("Change to video");
+      }
+      else{
+        texto = document.createTextNode("Change to shorts");
+      }
 
-    btn.setAttribute("id","ButtonChangeShorts");
-    btn.setAttribute("class", "butaostyle");
-    btn.appendChild(texto)
-    elementYoutube.prepend(btn);
+      btn.setAttribute("id","ButtonChangeShorts");
+      btn.setAttribute("class", "butaostyle");
+      btn.appendChild(texto)
+      elementYoutube.prepend(btn);
+    }
   }
 }
 
@@ -76,5 +78,5 @@ function replaceURL() {
 };
 
 document.addEventListener("yt-navigate-finish", function() {
-  addButton();
+ addButton();
 }, false);
