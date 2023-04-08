@@ -48,10 +48,10 @@ function addButton(){
     btn.addEventListener("click", replaceURL);
 
     if (window.location.pathname.includes("shorts")){
-      texto = document.createTextNode("Change to video");
+      var texto = document.createTextNode("Change to video");
     }
     else{
-      texto = document.createTextNode("Change to shorts");
+      var texto = document.createTextNode("Change to shorts");
     }
 
     btn.setAttribute("id","ButtonChangeShorts");
