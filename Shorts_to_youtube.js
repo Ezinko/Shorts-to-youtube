@@ -13,7 +13,8 @@ const textStyle = `
 .butaostyle {
   font-style: oblique;
   font-weight: 600;
-  background-color:rgb(70,70,70);opacity:0.6;
+  background-color:rgb(70,70,70);
+  opacity:0.6;
   border: none;
   color: white;
   padding: 8px;
@@ -27,6 +28,25 @@ const textStyle = `
 }
 .butaostyle:hover {
   background-color: grey;
+}
+.toggledButton {
+  font-style: oblique;
+  font-weight: 600;
+  background-color:rgb(0,200,200);
+  opacity:0.6;
+  border: none;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.toggledButton:hover {
+  background-color: rgb(0, 255, 255);
 }`;
 
 css();
@@ -39,10 +59,10 @@ function css() {
 }
 
 function addButton(){
-  var element = document.getElementById("ButtonChangeShorts");
+  var element = document.getElementById("buttonChangeShorts");
 
   if (element != null){
-      element.remove(ButtonChangeShorts);
+      element.remove(buttonChangeShorts);
   }
   if (!window.location.search.includes("list")){
     if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
@@ -57,7 +77,7 @@ function addButton(){
         texto = document.createTextNode("Change to shorts");
       }
 
-      btn.setAttribute("id","ButtonChangeShorts");
+      btn.setAttribute("id","buttonChangeShorts");
       btn.setAttribute("class", "butaostyle");
       btn.appendChild(texto);
       elementYoutube.prepend(btn);
@@ -71,13 +91,15 @@ function addToggleButton(){
   if (element == null){
     var elementYoutube = document.getElementById("end");
     const tglBtn = document.createElement("button");
-    if (window.name == "saveBool"){
+    if (sessionStorage.getItem("saveBool") == "True"){
       var texto = document.createTextNode("ON");
       isON = true;
+      tglBtn.setAttribute("class", "toggledButton");
     }
     else{
       var texto = document.createTextNode("OFF");
       isON = false;
+      tglBtn.setAttribute("class", "butaostyle");
     }
 
     tglBtn.addEventListener("click", function(){
@@ -85,18 +107,19 @@ function addToggleButton(){
       if (isON){
         isON = false;
         texto = document.createTextNode("OFF");
-        window.name = "";
+        tglBtn.setAttribute("class", "butaostyle");
+        sessionStorage.setItem("saveBool", "False");
       }
       else{
         isON = true;
         texto = document.createTextNode("ON");
-        window.name = "saveBool";
+        tglBtn.setAttribute("class", "toggledButton");
+        sessionStorage.setItem("saveBool", "True");
       }
       tglBtn.appendChild(texto);
     })
 
     tglBtn.setAttribute("id","toggleShortsButton");
-    tglBtn.setAttribute("class", "butaostyle");
     tglBtn.appendChild(texto);
     elementYoutube.prepend(tglBtn);
   }
@@ -123,3 +146,11 @@ document.addEventListener("yt-navigate-finish", function() {
     replaceURL();
   }
 }, false);
+
+if(document.getElementById("toggleShortsButton") == null){
+  addToggleButton();
+}
+
+if(document.getElementById("buttonChangeShorts") == null){
+  addButton();
+}
