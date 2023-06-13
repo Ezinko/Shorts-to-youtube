@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://www.youtube.com/*
 // @version     3.0
-// @author      Kouta e D-zero
+// @author      Kouta e DZ
 // @description 27/05/2023 06:03:00
 // ==/UserScript==
 
