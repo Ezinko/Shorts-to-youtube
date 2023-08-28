@@ -2,8 +2,8 @@
 // @name        Shorts To Youtube video
 // @namespace   Violentmonkey Scripts
 // @match       https://www.youtube.com/*
-// @version     3.0
-// @author      Kouta e DZ
+// @version     3.1
+// @author      Kouta e D-zero
 // @description 27/05/2023 06:03:00
 // ==/UserScript==
 
@@ -91,7 +91,7 @@ function addToggleButton(){
   if (element == null){
     var elementYoutube = document.getElementById("end");
     const tglBtn = document.createElement("button");
-    if (sessionStorage.getItem("saveBool") == "True"){
+    if (localStorage.getItem("onButtonState") == "True"){
       var texto = document.createTextNode("ON");
       isON = true;
       tglBtn.setAttribute("class", "toggledButton");
@@ -105,16 +105,16 @@ function addToggleButton(){
     tglBtn.addEventListener("click", function(){
       tglBtn.removeChild(texto);
       if (isON){
+        localStorage.setItem("onButtonState", "False");
         isON = false;
         texto = document.createTextNode("OFF");
         tglBtn.setAttribute("class", "butaostyle");
-        sessionStorage.setItem("saveBool", "False");
       }
       else{
+        localStorage.setItem("onButtonState", "True");
         isON = true;
         texto = document.createTextNode("ON");
         tglBtn.setAttribute("class", "toggledButton");
-        sessionStorage.setItem("saveBool", "True");
       }
       tglBtn.appendChild(texto);
     })
