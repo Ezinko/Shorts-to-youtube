@@ -2,7 +2,7 @@
 // @name        Shorts To Youtube video
 // @namespace   Violentmonkey Scripts
 // @match       https://www.youtube.com/*
-// @version     3.1
+// @version     3.2
 // @author      Kouta e D-zero
 // @description 27/05/2023 06:03:00
 // ==/UserScript==
@@ -85,6 +85,28 @@ function addButton(){
   }
 }
 
+function addButtonNewPage(){
+  var element = document.getElementById("buttonNewPage");
+
+  if (element != null){
+      element.remove(buttonNewPage);
+  }
+  if (!window.location.search.includes("list")){
+    if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
+      var elementYoutube = document.getElementById("center");
+      const btn = document.createElement("button");
+      btn.addEventListener("click", newTabUrl);
+
+      var texto = document.createTextNode("Open in new tab");
+
+      btn.setAttribute("id","buttonNewPage");
+      btn.setAttribute("class", "butaostyle");
+      btn.appendChild(texto);
+      elementYoutube.prepend(btn);
+    }
+  }
+}
+
 function addToggleButton(){
   var element = document.getElementById("toggleShortsButton");
 
@@ -139,9 +161,24 @@ function replaceURL() {
   }
 };
 
+function newTabUrl() {
+  var theURLpathname = window.location.pathname;
+
+  if(theURLpathname.includes("shorts/")){
+    var newURL = theURLpathname.replace("shorts/", "watch?v=");
+    window.open("https://www.youtube.com" + newURL);
+  }
+  else if(theURLpathname.includes("watch") && isON == false){
+    var textoURL = window.location.search;
+    var id = textoURL.substring(3, textoURL.length);
+    window.open("https://www.youtube.com/shorts/" + id);
+  }
+};
+
 document.addEventListener("yt-navigate-finish", function() {
   addButton();
   addToggleButton();
+  addButtonNewPage();
   if (isON){
     replaceURL();
   }
@@ -153,4 +190,8 @@ if(document.getElementById("toggleShortsButton") == null){
 
 if(document.getElementById("buttonChangeShorts") == null){
   addButton();
+}
+
+if(document.getElementById("buttonNewPage") == null){
+  addButtonNewPage();
 }
