@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        Shorts To Youtube video
+// @name        Shorts To Youtube Video
 // @namespace   Violentmonkey Scripts
 // @match       https://www.youtube.com/*
-// @version     3.2
+// @version     3.3
 // @author      Kouta e D-zero
 // @description 27/05/2023 06:03:00
 // ==/UserScript==
@@ -66,7 +66,7 @@ function addButton(){
   }
   if (!window.location.search.includes("list")){
     if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
-      var elementYoutube = document.getElementById("center");
+      var elementYoutube = document.getElementById("start");
       const btn = document.createElement("button");
       btn.addEventListener("click", replaceURL);
 
@@ -80,7 +80,7 @@ function addButton(){
       btn.setAttribute("id","buttonChangeShorts");
       btn.setAttribute("class", "butaostyle");
       btn.appendChild(texto);
-      elementYoutube.prepend(btn);
+      elementYoutube.appendChild(btn);
     }
   }
 }
@@ -93,7 +93,7 @@ function addButtonNewPage(){
   }
   if (!window.location.search.includes("list")){
     if (window.location.pathname.includes("shorts") || window.location.pathname.includes("watch")){
-      var elementYoutube = document.getElementById("center");
+      var elementYoutube = document.getElementById("start");
       const btn = document.createElement("button");
       btn.addEventListener("click", newTabUrl);
 
@@ -102,7 +102,7 @@ function addButtonNewPage(){
       btn.setAttribute("id","buttonNewPage");
       btn.setAttribute("class", "butaostyle");
       btn.appendChild(texto);
-      elementYoutube.prepend(btn);
+      elementYoutube.appendChild(btn);
     }
   }
 }
@@ -111,7 +111,7 @@ function addToggleButton(){
   var element = document.getElementById("toggleShortsButton");
 
   if (element == null){
-    var elementYoutube = document.getElementById("end");
+    var elementYoutube = document.getElementById("start");
     const tglBtn = document.createElement("button");
     if (localStorage.getItem("onButtonState") == "True"){
       var texto = document.createTextNode("ON");
@@ -143,7 +143,7 @@ function addToggleButton(){
 
     tglBtn.setAttribute("id","toggleShortsButton");
     tglBtn.appendChild(texto);
-    elementYoutube.prepend(tglBtn);
+    elementYoutube.appendChild(tglBtn);
   }
 }
 
@@ -177,8 +177,8 @@ function newTabUrl() {
 
 document.addEventListener("yt-navigate-finish", function() {
   addButton();
-  addToggleButton();
   addButtonNewPage();
+  addToggleButton();
   if (isON){
     replaceURL();
   }
