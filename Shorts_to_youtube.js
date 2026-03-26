@@ -2,9 +2,9 @@
 // @name        Shorts To Youtube Video
 // @namespace   Violentmonkey Scripts
 // @match       https://www.youtube.com/*
-// @version     3.3
+// @version     3.5
 // @author      Kouta e D-zero
-// @description 27/05/2023 06:03:00
+// @description 09/03/2026 09:00:00
 // ==/UserScript==
 
 let isON;
@@ -49,14 +49,20 @@ const textStyle = `
   background-color: rgb(0, 255, 255);
 }`;
 
-css();
+GM_addStyle(textStyle);
 
-function css() {
-    const style = document.createElement("style");
-    style.type = "text/css";
-    style.innerHTML = textStyle;
-    document.head.appendChild(style);
-}
+function GM_addStyle(aCss) {
+  'use strict';
+  let head = document.getElementsByTagName('head')[0];
+  if (head) {
+    let style = document.createElement('style');
+    style.setAttribute('type', 'text/css');
+    style.textContent = aCss;
+    head.appendChild(style);
+    return style;
+  }
+  return null;
+};
 
 function addButton(){
   var element = document.getElementById("buttonChangeShorts");
